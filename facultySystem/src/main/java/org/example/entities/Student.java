@@ -1,5 +1,7 @@
 package org.example.entities;
 
+import java.time.LocalDate;
+import java.util.Locale;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Student {
@@ -8,33 +10,36 @@ public class Student {
 
 
     private final int id;
-    private String first_name;
-    private String last_name;
+    private String firstName;
+    private String lastName;
     private String patronymic;
+    private final LocalDate dateOfBirth;
     private final String gender;
-    private final int admission_year;
-    private long student_code;
+    private final int admissionYear;
+    private long studentCode;
     private String email;
     private String phone;
     private Group group;
 
     public static class StudentBuilder {
-        private final String first_name;
-        private final String last_name;
+        private final String firstName;
+        private final String lastName;
+        private final LocalDate dateOfBirth;
         private final String gender;
-        private final int admission_year;
-        private final long student_code;
+        private final int admissionYear;
+        private final long studentCode;
         private final Group group;
         private String patronymic = "no patronymic";
         private String email = "no email";
         private String phone = "no phone";
 
-        public StudentBuilder(String first_name, String last_name, String gender, int admission_year, long student_code, Group group) {
-            this.admission_year = admission_year;
-            this.first_name = first_name;
-            this.last_name = last_name;
+        public StudentBuilder(String firstName, String lastName, LocalDate dateOfBirth, String gender, int admissionYear, long studentCode, Group group) {
+            this.admissionYear = admissionYear;
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.dateOfBirth = dateOfBirth;
             this.gender = gender;
-            this.student_code = student_code;
+            this.studentCode = studentCode;
             this.group = group;
         }
 
@@ -56,8 +61,8 @@ public class Student {
         public Student build() { return new Student(this); }
     }
 
-    public int getAdmission_year() {
-        return admission_year;
+    public int getAdmissionYear() {
+        return admissionYear;
     }
 
     public String getEmail() {
@@ -68,12 +73,12 @@ public class Student {
         this.email = email;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getGender() {
@@ -92,12 +97,12 @@ public class Student {
         return id;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getPatronymic() {
@@ -116,21 +121,26 @@ public class Student {
         this.phone = phone;
     }
 
-    public Long getStudent_code() {
-        return student_code;
+    public long getStudentCode() {
+        return studentCode;
     }
 
-    public void setStudent_code(Long student_code) {
-        this.student_code = student_code;
+    public void setStudentCode(Long studentCode) {
+        this.studentCode = studentCode;
+    }
+
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
     }
 
     private Student(StudentBuilder builder) {
         id = STUDENT_INSTANCE_COUNTER.incrementAndGet();
-        first_name = builder.first_name;
-        last_name = builder.last_name;
+        firstName = builder.firstName;
+        lastName = builder.lastName;
+        dateOfBirth = builder.dateOfBirth;
         gender = builder.gender;
-        admission_year = builder.admission_year;
-        student_code = builder.student_code;
+        admissionYear = builder.admissionYear;
+        studentCode = builder.studentCode;
         email = builder.email;
         phone = builder.phone;
         group = builder.group;
@@ -140,13 +150,13 @@ public class Student {
     public String toString() {
         return "Student{" +
                 "id=" + id +
-                ", admission_year=" + admission_year +
+                ", admission_year=" + admissionYear +
                 ", email='" + email + '\'' +
-                ", first_name='" + first_name + '\'' +
+                ", first_name='" + firstName + '\'' +
                 ", gender='" + gender + '\'' +
                 ", group=" + group +
-                ", last_name='" + last_name + '\'' +
-                ", student_code=" + student_code +
+                ", last_name='" + lastName + '\'' +
+                ", student_code=" + studentCode +
                 ", patronymic='" + patronymic + '\'' +
                 '}';
     }

@@ -11,7 +11,7 @@ public class Main {
         System.out.println(faculty1.toString());
         Student student1 = new Student.StudentBuilder("Егор", "Легуенко", "M", 2023, 16230319, null).email("привет").build();
         Student student2 = new Student.StudentBuilder("Иван", "Шамаев", "M", 2023, 16230317, null).build();
-        System.out.println(student1);
+        student2.setFirstName("Ваня");
         System.out.println(student2);
     }
 }
