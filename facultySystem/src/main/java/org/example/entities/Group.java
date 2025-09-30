@@ -10,7 +10,7 @@ public class Group {
     private short year;
     private Department department;
 
-    public Group(Department department, String name, short year) {
+    public Group(String name, short year, Department department) {
         this.id = GROUP_INSTANCE_COUNTER.incrementAndGet();
         this.department = department;
         this.name = name;

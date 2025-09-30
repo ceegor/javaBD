@@ -9,7 +9,7 @@ public class Department {
     private String name;
     private Faculty faculty;
 
-    public Department(int id, Faculty faculty, String name) {
+    public Department(String name, Faculty faculty) {
         this.id = DEPARTMENT_INSTANCE_COUNTER.incrementAndGet();
         this.faculty = faculty;
         this.name = name;
