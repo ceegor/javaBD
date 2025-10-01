@@ -1,14 +1,14 @@
-package org.example.cli.Get;
+package org.example.cli.Get.department;
 
 import org.example.cli.Command;
 import org.example.entities.Department;
 import org.example.service.DepartmentService;
 import org.example.service.DepartmentServiceImpl;
 
-public class getAllDepartments implements Command {
+public class GetAllDepartments implements Command {
     private final DepartmentService departmentService;
 
-    public getAllDepartments() {
+    public GetAllDepartments() {
         this.departmentService = DepartmentServiceImpl.getInstance();
     }
 

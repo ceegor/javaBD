@@ -78,4 +78,9 @@ public class StudentRepositoryImpl implements StudentRepository {
     public void update(int id, Student student) {
         storage.put(id, student);
     }
+
+    @Override
+    public void deleteStudentById(int id) {
+        storage.remove(id);
+    }
 }

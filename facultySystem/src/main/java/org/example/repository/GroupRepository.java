@@ -9,4 +9,5 @@ public interface GroupRepository extends Repository<Group> {
     Group getGroupByName(String name);
     List<Group> getGroupsByYear(short year);
     List<Group> getGroupsByDepartment(Department department);
+    void deleteGroupById(int id);
 }

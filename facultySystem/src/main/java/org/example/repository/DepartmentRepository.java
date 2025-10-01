@@ -8,4 +8,5 @@ import java.util.List;
 public interface DepartmentRepository extends Repository<Department> {
     Department getDepartmentByName(String name);
     List<Department> getDepartmentsByFaculty(Faculty faculty);
+    void deleteDepartmentById(int id);
 }

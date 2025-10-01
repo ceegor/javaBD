@@ -9,4 +9,5 @@ public interface StudentRepository extends Repository<Student> {
     List<Student> getStudentsByLastName(String lastName);
     List<Student> getStudentsByGroup(Group group);
     List<Student> getStudentsByAdmissionYear(int year);
+    void deleteStudentById(int id);
 }

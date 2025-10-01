@@ -29,6 +29,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public Student createStudent(String[] parameters) {
+        return null;
+    }
+
+    @Override
     public List<Student> getStudentsByDepartment(Department department) {
         return studentRepository.getAll().stream()
                 .filter(s -> s.getGroup() != null &&
@@ -47,10 +52,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void delete(int id) {
-        Student s = studentRepository.getById(id);
-        if (s != null) {
-            studentRepository.getAll().remove(s);
-        }
+        studentRepository.deleteStudentById(id);
     }
 
     @Override

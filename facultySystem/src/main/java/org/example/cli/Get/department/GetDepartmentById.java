@@ -1,4 +1,4 @@
-package org.example.cli.Get;
+package org.example.cli.Get.department;
 
 import org.example.cli.Command;
 import org.example.entities.Department;
@@ -7,11 +7,11 @@ import org.example.service.DepartmentServiceImpl;
 
 import java.util.Scanner;
 
-public class getDepartmentById implements Command {
+public class GetDepartmentById implements Command {
     private final Scanner scn = new Scanner(System.in);
     private final DepartmentService departmentService;
 
-    public getDepartmentById() {
+    public GetDepartmentById() {
         this.departmentService = DepartmentServiceImpl.getInstance();
     }
 

@@ -31,6 +31,7 @@ public class GroupServiceImpl implements GroupService {
         return new Group(name, year, dep);
     }
 
+    @Override
     public Group createGroup(String[] parameters) {
         Group group = setInfoForNewGroup(parameters);
         groupRepository.add(group);
@@ -59,10 +60,7 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public void delete(int id) {
-        Group g = groupRepository.getById(id);
-        if (g != null) {
-            groupRepository.getAll().remove(g);
-        }
+        groupRepository.deleteGroupById(id);
     }
 
     @Override

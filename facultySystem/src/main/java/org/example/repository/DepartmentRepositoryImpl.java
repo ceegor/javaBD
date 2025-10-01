@@ -64,4 +64,9 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
     public void update(int id, Department department) {
         storage.put(id, department);
     }
+
+    @Override
+    public void deleteDepartmentById(int id) {
+        storage.remove(id);
+    }
 }

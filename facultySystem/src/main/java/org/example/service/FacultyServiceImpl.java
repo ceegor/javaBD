@@ -28,6 +28,7 @@ public class FacultyServiceImpl implements FacultyService {
         return new Faculty(name, dean);
     }
 
+    @Override
     public Faculty createFaculty(String[] parameters) {
         Faculty faculty = setInfoForNewFaculty(parameters);
         facultyRepository.add(faculty);
@@ -57,10 +58,7 @@ public class FacultyServiceImpl implements FacultyService {
     @Override public void update(int id, Faculty faculty) { facultyRepository.update(id, faculty); }
 
     @Override public void delete(int id) {
-        Faculty f = facultyRepository.getById(id);
-        if (f != null) {
-            facultyRepository.getAll().remove(f);
-        }
+        facultyRepository.deleteFacultyById(id);
     }
 
     @Override public void removeAll() { facultyRepository.removeAll(); }

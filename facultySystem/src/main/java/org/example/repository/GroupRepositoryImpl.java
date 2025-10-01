@@ -76,4 +76,9 @@ public class GroupRepositoryImpl implements GroupRepository {
     public void update(int id, Group group) {
         storage.put(id, group);
     }
+
+    @Override
+    public void deleteGroupById(int id) {
+        storage.remove(id);
+    }
 }

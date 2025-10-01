@@ -60,4 +60,9 @@ public class FacultyRepositoryImpl implements FacultyRepository {
     public void update(int id, Faculty faculty) {
         storage.put(id, faculty);
     }
+
+    @Override
+    public void deleteFacultyById(int id) {
+        storage.remove(id);
+    }
 }

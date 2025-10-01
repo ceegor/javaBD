@@ -30,6 +30,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         return new Department(name, faculty);
     }
 
+    @Override
     public Department createDepartment(String[] parameters) {
         Department department = setInfoForNewDepartment(parameters);
         departmentRepository.add(department);
@@ -53,10 +54,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public void delete(int id) {
-        Department dep = departmentRepository.getById(id);
-        if (dep != null) {
-            departmentRepository.getAll().remove(dep);
-        }
+        departmentRepository.deleteDepartmentById(id);
     }
 
     @Override

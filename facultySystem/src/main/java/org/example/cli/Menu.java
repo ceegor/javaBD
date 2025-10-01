@@ -1,7 +1,13 @@
 package org.example.cli;
 
-import org.example.cli.Get.getAllDepartments;
-import org.example.cli.Get.getDepartmentById;
+import org.example.cli.Get.department.CreateDepartment;
+import org.example.cli.Get.department.DeleteDepartmentById;
+import org.example.cli.Get.department.GetAllDepartments;
+import org.example.cli.Get.department.GetDepartmentById;
+import org.example.cli.Get.faculty.CreateFaculty;
+import org.example.cli.Get.faculty.DeleteFacultyById;
+import org.example.cli.Get.faculty.GetAllFaculties;
+import org.example.cli.Get.faculty.GetFacultyById;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -10,8 +16,14 @@ public class Menu {
     private static final Scanner scn = new Scanner(System.in);
 
     private static final Command[] commands = new Command[]{
-            new getAllDepartments(),
-            new getDepartmentById(),
+            new GetAllDepartments(),
+            new GetDepartmentById(),
+            new CreateDepartment(),
+            new DeleteDepartmentById(),
+            new GetAllFaculties(),
+            new GetFacultyById(),
+            new CreateFaculty(),
+            new DeleteFacultyById()
     };
 
     public static void run() {

@@ -10,4 +10,5 @@ public interface StudentService extends Service<Student> {
     List<Student> getStudentsByDepartment(Department department);
     boolean isEmailUnique(String email);
     Student findStudentsByStudentCode(long studentCode);
+    Student createStudent(String[] parameters);
 }
