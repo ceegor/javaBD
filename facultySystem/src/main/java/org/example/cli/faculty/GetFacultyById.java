@@ -1,4 +1,4 @@
-package org.example.cli.Get.faculty;
+package org.example.cli.faculty;
 
 import org.example.cli.Command;
 import org.example.entities.Faculty;

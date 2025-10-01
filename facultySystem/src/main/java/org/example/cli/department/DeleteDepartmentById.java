@@ -1,4 +1,4 @@
-package org.example.cli.Get.department;
+package org.example.cli.department;
 
 import org.example.cli.Command;
 import org.example.entities.Department;

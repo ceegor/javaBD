@@ -1,13 +1,13 @@
 package org.example.cli;
 
-import org.example.cli.Get.department.CreateDepartment;
-import org.example.cli.Get.department.DeleteDepartmentById;
-import org.example.cli.Get.department.GetAllDepartments;
-import org.example.cli.Get.department.GetDepartmentById;
-import org.example.cli.Get.faculty.CreateFaculty;
-import org.example.cli.Get.faculty.DeleteFacultyById;
-import org.example.cli.Get.faculty.GetAllFaculties;
-import org.example.cli.Get.faculty.GetFacultyById;
+import org.example.cli.department.CreateDepartment;
+import org.example.cli.department.DeleteDepartmentById;
+import org.example.cli.department.GetAllDepartments;
+import org.example.cli.department.GetDepartmentById;
+import org.example.cli.faculty.CreateFaculty;
+import org.example.cli.faculty.DeleteFacultyById;
+import org.example.cli.faculty.GetAllFaculties;
+import org.example.cli.faculty.GetFacultyById;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
