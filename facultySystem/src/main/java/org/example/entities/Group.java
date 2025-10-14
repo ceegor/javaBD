@@ -1,7 +1,13 @@
 package org.example.entities;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.concurrent.atomic.AtomicInteger;
 
+
+@Getter
+@Setter
 public class Group {
     private static final AtomicInteger GROUP_INSTANCE_COUNTER = new AtomicInteger(0);
 
@@ -14,30 +20,6 @@ public class Group {
         this.id = GROUP_INSTANCE_COUNTER.incrementAndGet();
         this.department = department;
         this.name = name;
-        this.year = year;
-    }
-
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public short getYear() {
-        return year;
-    }
-
-    public void setYear(short year) {
         this.year = year;
     }
 

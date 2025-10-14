@@ -1,9 +1,15 @@
 package org.example.entities;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDate;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicInteger;
 
+
+@Getter
+@Setter
 public class Student {
 
     private static final AtomicInteger STUDENT_INSTANCE_COUNTER = new AtomicInteger(0);
@@ -61,78 +67,6 @@ public class Student {
         public Student build() { return new Student(this); }
     }
 
-    public int getAdmissionYear() {
-        return admissionYear;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public Group getGroup() {
-        return group;
-    }
-
-    public void setGroup(Group group) {
-        this.group = group;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getPatronymic() {
-        return patronymic;
-    }
-
-    public void setPatronymic(String patronymic) {
-        this.patronymic = patronymic;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public long getStudentCode() {
-        return studentCode;
-    }
-
-    public void setStudentCode(Long studentCode) {
-        this.studentCode = studentCode;
-    }
-
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
-    }
-
     private Student(StudentBuilder builder) {
         id = STUDENT_INSTANCE_COUNTER.incrementAndGet();
         firstName = builder.firstName;
@@ -144,6 +78,7 @@ public class Student {
         email = builder.email;
         phone = builder.phone;
         group = builder.group;
+        patronymic = builder.patronymic;
     }
 
     @Override

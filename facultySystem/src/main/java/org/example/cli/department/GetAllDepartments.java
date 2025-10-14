@@ -15,9 +15,14 @@ public class GetAllDepartments implements Command {
     @Override
     public void execute() {
         System.out.println("Список всех кафедр:");
-        for (Department dep : departmentService.getAll()) {
-            System.out.println(dep);
+        if (!departmentService.getAll().isEmpty()) {
+            for (Department dep : departmentService.getAll()) {
+                System.out.println(dep);
+            }
+        } else {
+            System.out.println("Нет ни одной кафедры.");
         }
+
     }
 
     @Override

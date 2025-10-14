@@ -1,7 +1,12 @@
 package org.example.entities;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.concurrent.atomic.AtomicInteger;
 
+@Getter
+@Setter
 public class Department {
     private static final AtomicInteger DEPARTMENT_INSTANCE_COUNTER = new AtomicInteger(0);
 
@@ -12,26 +17,6 @@ public class Department {
     public Department(String name, Faculty faculty) {
         this.id = DEPARTMENT_INSTANCE_COUNTER.incrementAndGet();
         this.faculty = faculty;
-        this.name = name;
-    }
-
-    public Faculty getFaculty() {
-        return faculty;
-    }
-
-    public void setFaculty(Faculty faculty) {
-        this.faculty = faculty;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
         this.name = name;
     }
 

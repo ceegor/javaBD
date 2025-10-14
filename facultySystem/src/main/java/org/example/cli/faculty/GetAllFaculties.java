@@ -15,8 +15,12 @@ public class GetAllFaculties implements Command {
     @Override
     public void execute() {
         System.out.println("Список всех факультетов:");
-        for (Faculty f : facultyService.getAll()) {
-            System.out.println(f);
+        if (!facultyService.getAll().isEmpty()) {
+            for (Faculty f : facultyService.getAll()) {
+                System.out.println(f);
+            }
+        } else {
+            System.out.println("Нет ни одного факультета.");
         }
     }
 
