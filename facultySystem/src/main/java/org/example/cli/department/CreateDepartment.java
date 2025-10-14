@@ -17,16 +17,42 @@ public class CreateDepartment implements Command {
 
     @Override
     public void execute() {
-        System.out.print("Введите название кафедры: ");
-        String name = scn.nextLine();
+        String name;
+        while (true) {
+            System.out.print("Введите название кафедры: ");
+            name = scn.nextLine().trim();
+            if (name.isEmpty()) {
+                System.out.println("Название не может быть пустым. Попробуйте снова.");
+            } else {
+                break;
+            }
+        }
 
-        System.out.print("Введите ID факультета: ");
-        String facultyId = scn.nextLine();
-        scn.nextLine();
+        String facultyId;
+        while (true) {
+            System.out.print("Введите ID факультета (число): ");
+            facultyId = scn.nextLine().trim();
+
+            if (facultyId.isEmpty()) {
+                System.out.println("ID не может быть пустым. Попробуйте снова.");
+                continue;
+            }
+
+            try {
+                Integer.parseInt(facultyId);
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Введите корректное число!");
+            }
+        }
 
         String[] parameters = { name, facultyId };
-        Department dep = departmentService.createDepartment(parameters);
-        System.out.println("Создана кафедра: " + dep);
+        try {
+            Department dep = departmentService.createDepartment(parameters);
+            System.out.println("Создана кафедра: " + dep);
+        } catch (Exception e) {
+            System.out.println("Ошибка при создании кафедры: " + e.getMessage());
+        }
     }
 
     @Override

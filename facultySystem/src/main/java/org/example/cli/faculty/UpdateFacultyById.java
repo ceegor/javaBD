@@ -30,15 +30,19 @@ public class UpdateFacultyById implements Command {
         System.out.println("Текущее состояние: " + faculty);
 
         System.out.print("Введите новое название (Enter — оставить текущее): ");
-        String newName = scn.nextLine();
+        String newName = scn.nextLine().trim();
         if (!newName.isEmpty()) {
             faculty.setName(newName);
+        } else {
+            System.out.println("Название не изменено.");
         }
 
         System.out.print("Введите новое имя декана (Enter — оставить текущее): ");
-        String newDean = scn.nextLine();
+        String newDean = scn.nextLine().trim();
         if (!newDean.isEmpty()) {
             faculty.setDean(newDean);
+        } else {
+            System.out.println("Имя декана не изменено.");
         }
 
         facultyService.update(id, faculty);

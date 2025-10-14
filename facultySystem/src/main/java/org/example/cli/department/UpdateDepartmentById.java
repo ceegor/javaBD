@@ -23,8 +23,13 @@ public class UpdateDepartmentById implements Command {
     @Override
     public void execute() {
         System.out.print("Введите ID кафедры для изменения: ");
-        int id = scn.nextInt();
-        scn.nextLine();
+        int id;
+        try {
+            id = Integer.parseInt(scn.nextLine().trim());
+        } catch (NumberFormatException e) {
+            System.out.println("Некорректный ID. Введите целое число.");
+            return;
+        }
 
         Department department = departmentService.getById(id);
         if (department == null) {
@@ -35,13 +40,15 @@ public class UpdateDepartmentById implements Command {
         System.out.println("Текущее состояние: " + department);
 
         System.out.print("Введите новое название (Enter — оставить текущее): ");
-        String newName = scn.nextLine();
+        String newName = scn.nextLine().trim();
         if (!newName.isEmpty()) {
             department.setName(newName);
+        } else {
+            System.out.println("Название не изменено.");
         }
 
         System.out.print("Введите новый ID факультета (Enter — оставить текущий): ");
-        String facultyInput = scn.nextLine();
+        String facultyInput = scn.nextLine().trim();
         if (!facultyInput.isEmpty()) {
             try {
                 int facultyId = Integer.parseInt(facultyInput);
@@ -54,6 +61,8 @@ public class UpdateDepartmentById implements Command {
             } catch (NumberFormatException e) {
                 System.out.println("Введено не число. Старое значение сохранено.");
             }
+        } else {
+            System.out.println("Факультет не изменён.");
         }
 
         departmentService.update(id, department);

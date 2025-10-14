@@ -17,11 +17,27 @@ public class CreateFaculty implements Command {
 
     @Override
     public void execute() {
-        System.out.print("Введите название факультета: ");
-        String name = scn.nextLine();
+        String name;
+        while (true) {
+            System.out.print("Введите название факультета: ");
+            name = scn.nextLine().trim();
+            if (name.isEmpty()) {
+                System.out.println("Название не может быть пустым. Попробуйте снова.");
+            } else {
+                break;
+            }
+        }
 
-        System.out.print("Введите имя декана: ");
-        String dean = scn.nextLine();
+        String dean;
+        while (true) {
+            System.out.print("Введите имя декана: ");
+            dean = scn.nextLine().trim();
+            if (dean.isEmpty()) {
+                System.out.println("Имя декана не может быть пустым. Попробуйте снова.");
+            } else {
+                break;
+            }
+        }
 
         String[] parameters = { name, dean };
 
