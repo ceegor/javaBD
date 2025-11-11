@@ -22,10 +22,10 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
     }
 
     @Override
-    public List<Department> getDepartmentsByFaculty(Faculty faculty) {
+    public List<Department> getDepartmentsByFaculty(int facultyId) {
         List<Department> result = new ArrayList<>();
         for (Department d : storage.values()) {
-            if (d.getFaculty() != null && d.getFaculty().equals(faculty)) {
+            if (d.getFacultyId() >= 0 && d.getFacultyId() == facultyId) {
                 result.add(d);
             }
         }

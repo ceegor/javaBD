@@ -12,11 +12,11 @@ public class Department {
 
     private final int id;
     private String name;
-    private Faculty faculty;
+    private int facultyId;
 
-    public Department(String name, Faculty faculty) {
+    public Department(String name, int facultyId) {
         this.id = DEPARTMENT_INSTANCE_COUNTER.incrementAndGet();
-        this.faculty = faculty;
+        this.facultyId = facultyId;
         this.name = name;
     }
 
@@ -24,8 +24,24 @@ public class Department {
     public String toString() {
         return "Department{" +
                 "id=" + id +
-                ", faculty=" + faculty +
+                ", faculty=" + facultyId +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Department)) return false;
+        Department d = (Department) o;
+        return id == d.id && facultyId == d.facultyId && name.equals(d.name);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Integer.hashCode(id);
+        result = 31 * result + name.hashCode();
+        result = 31 * result + Integer.hashCode(facultyId);
+        return result;
     }
 }

@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface StudentService extends Service<Student> {
     List<Student> getStudentsOlderThan(int age);
-    List<Student> getStudentsByDepartment(Department department);
+    List<Student> getStudentsByDepartment(int departmentId);
+    List<Student> getStudentsByGroup(int groupId);
     boolean isEmailUnique(String email);
     Student findStudentsByStudentCode(long studentCode);
-    Student createStudent(String[] parameters);
 }

@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface DepartmentRepository extends Repository<Department> {
     Department getDepartmentByName(String name);
-    List<Department> getDepartmentsByFaculty(Faculty faculty);
+    List<Department> getDepartmentsByFaculty(int facultyId);
     void deleteDepartmentById(int id);
 }

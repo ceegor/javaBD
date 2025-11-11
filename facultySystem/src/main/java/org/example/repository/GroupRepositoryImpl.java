@@ -23,10 +23,10 @@ public class GroupRepositoryImpl implements GroupRepository {
     }
 
     @Override
-    public List<Group> getGroupsByDepartment(Department department) {
+    public List<Group> getGroupsByDepartment(int departmentId) {
         List<Group> result = new ArrayList<>();
         for (Group g : storage.values()) {
-            if (g.getDepartment() != null && g.getDepartment().equals(department)) {
+            if (g.getDepartmentId() >= 0 && g.getDepartmentId() == departmentId) {
                 result.add(g);
             }
         }

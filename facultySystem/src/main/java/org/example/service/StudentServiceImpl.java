@@ -1,20 +1,27 @@
 package org.example.service;
 
 import org.example.entities.Department;
+import org.example.entities.Group;
 import org.example.entities.Student;
+import org.example.repository.GroupRepository;
+import org.example.repository.GroupRepositoryImpl;
 import org.example.repository.StudentRepository;
 import org.example.repository.StudentRepositoryImpl;
 
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class StudentServiceImpl implements StudentService {
     private static StudentServiceImpl instance;
     private final StudentRepository studentRepository;
+    private final GroupRepository groupRepository;
 
     private StudentServiceImpl() {
         this.studentRepository = StudentRepositoryImpl.getInstance();
+        this.groupRepository = GroupRepositoryImpl.getInstance();
     }
 
     public static StudentService getInstance() {
@@ -24,21 +31,25 @@ public class StudentServiceImpl implements StudentService {
         return instance;
     }
 
-    private Student setInfoForNewStudent(String[] parameters) {
-        return null;
-    }
-
     @Override
-    public Student createStudent(String[] parameters) {
-        return null;
-    }
+    public List<Student> getStudentsByDepartment(int departmentId) {
+        Set<Integer> groupIds = groupRepository.getGroupsByDepartment(departmentId)
+                .stream()
+                .map(Group::getId)
+                .collect(Collectors.toSet());
 
-    @Override
-    public List<Student> getStudentsByDepartment(Department department) {
+        if (groupIds.isEmpty()) return List.of();
+
         return studentRepository.getAll().stream()
-                .filter(s -> s.getGroup() != null &&
-                        s.getGroup().getDepartment() != null &&
-                        s.getGroup().getDepartment().equals(department))
+                .filter(s -> groupIds.contains(s.getGroupId()))
+                .toList();
+    }
+
+    @Override
+    public List<Student> getStudentsByGroup(int groupId) {
+        return studentRepository.getAll().stream()
+                .filter(s -> s.getGroupId() >= 0 &&
+                        s.getGroupId() == groupId)
                 .toList();
     }
 

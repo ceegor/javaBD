@@ -23,28 +23,14 @@ public class DepartmentServiceImpl implements DepartmentService {
         return instance;
     }
 
-    private Department setInfoForNewDepartment(String[] parameters) {
-        String name = parameters[0];
-        int facultyId = Integer.parseInt(parameters[1]);
-        Faculty faculty = FacultyRepositoryImpl.getInstance().getById(facultyId);
-        return new Department(name, faculty);
-    }
-
-    @Override
-    public Department createDepartment(String[] parameters) {
-        Department department = setInfoForNewDepartment(parameters);
-        departmentRepository.add(department);
-        return department;
-    }
-
     @Override
     public Department getDepartmentByName(String name) {
         return departmentRepository.getDepartmentByName(name);
     }
 
     @Override
-    public List<Department> getDepartmentsByFaculty(Faculty faculty) {
-        return departmentRepository.getDepartmentsByFaculty(faculty);
+    public List<Department> getDepartmentsByFaculty(int facultyId) {
+        return departmentRepository.getDepartmentsByFaculty(facultyId);
     }
 
     @Override

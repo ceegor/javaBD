@@ -8,6 +8,6 @@ import java.util.List;
 public interface GroupRepository extends Repository<Group> {
     Group getGroupByName(String name);
     List<Group> getGroupsByYear(short year);
-    List<Group> getGroupsByDepartment(Department department);
+    List<Group> getGroupsByDepartment(int departmentId);
     void deleteGroupById(int id);
 }

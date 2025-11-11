@@ -7,17 +7,19 @@ import org.example.repository.FacultyRepository;
 import org.example.repository.FacultyRepositoryImpl;
 import org.example.service.DepartmentService;
 import org.example.service.DepartmentServiceImpl;
+import org.example.service.FacultyService;
+import org.example.service.FacultyServiceImpl;
 
 import java.util.Scanner;
 
 public class UpdateDepartmentById implements Command {
     private final Scanner scn = new Scanner(System.in);
     private final DepartmentService departmentService;
-    private final FacultyRepository facultyRepository;
+    private final FacultyService facultyService;
 
     public UpdateDepartmentById() {
         this.departmentService = DepartmentServiceImpl.getInstance();
-        this.facultyRepository = FacultyRepositoryImpl.getInstance();
+        this.facultyService = FacultyServiceImpl.getInstance();
     }
 
     @Override
@@ -52,7 +54,7 @@ public class UpdateDepartmentById implements Command {
         if (!facultyInput.isEmpty()) {
             try {
                 int facultyId = Integer.parseInt(facultyInput);
-                Faculty newFaculty = facultyRepository.getById(facultyId);
+                Faculty newFaculty = facultyService.getById(facultyId);
                 if (newFaculty != null) {
                     department.setFaculty(newFaculty);
                 } else {

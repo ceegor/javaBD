@@ -23,29 +23,14 @@ public class GroupServiceImpl implements GroupService {
         return instance;
     }
 
-    private Group setInfoForNewGroup(String[] parameters) {
-        String name = parameters[0];
-        short year = Short.parseShort(parameters[1]);
-        int depId = Integer.parseInt(parameters[2]);
-        Department dep = DepartmentRepositoryImpl.getInstance().getById(depId);
-        return new Group(name, year, dep);
-    }
-
-    @Override
-    public Group createGroup(String[] parameters) {
-        Group group = setInfoForNewGroup(parameters);
-        groupRepository.add(group);
-        return group;
-    }
-
     @Override
     public Group getGroupByName(String name) {
         return groupRepository.getGroupByName(name);
     }
 
     @Override
-    public List<Group> getGroupsByDepartment(Department department) {
-        return groupRepository.getGroupsByDepartment(department);
+    public List<Group> getGroupsByDepartment(int departmentId) {
+        return groupRepository.getGroupsByDepartment(departmentId);
     }
 
     @Override

@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface StudentRepository extends Repository<Student> {
     List<Student> getStudentsByLastName(String lastName);
-    List<Student> getStudentsByGroup(Group group);
+    List<Student> getStudentsByGroup(int groupId);
     List<Student> getStudentsByAdmissionYear(int year);
     void deleteStudentById(int id);
 }

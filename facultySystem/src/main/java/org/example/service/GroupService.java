@@ -8,6 +8,5 @@ import java.util.List;
 public interface GroupService extends Service<Group> {
     Group getGroupByName(String name);
     List<Group> getGroupsByYear(short year);
-    List<Group> getGroupsByDepartment(Department department);
-    Group createGroup(String[] parameters);
+    List<Group> getGroupsByDepartment(int departmentId);
 }

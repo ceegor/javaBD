@@ -33,10 +33,10 @@ public class StudentRepositoryImpl implements StudentRepository {
     }
 
     @Override
-    public List<Student> getStudentsByGroup(Group group) {
+    public List<Student> getStudentsByGroup(int groupId) {
         List<Student> result = new ArrayList<>();
         for (Student s : storage.values()) {
-            if (s.getGroup() != null && s.getGroup().equals(group)) {
+            if (s.getGroupId() >= 0 && s.getGroupId() == groupId) {
                 result.add(s);
             }
         }

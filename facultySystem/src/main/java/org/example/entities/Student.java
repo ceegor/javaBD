@@ -25,7 +25,7 @@ public class Student {
     private long studentCode;
     private String email;
     private String phone;
-    private Group group;
+    private int groupId;
 
     public static class StudentBuilder {
         private final String firstName;
@@ -34,19 +34,19 @@ public class Student {
         private final String gender;
         private final int admissionYear;
         private final long studentCode;
-        private final Group group;
+        private final int groupId;
         private String patronymic = "no patronymic";
         private String email = "no email";
         private String phone = "no phone";
 
-        public StudentBuilder(String firstName, String lastName, LocalDate dateOfBirth, String gender, int admissionYear, long studentCode, Group group) {
+        public StudentBuilder(String firstName, String lastName, LocalDate dateOfBirth, String gender, int admissionYear, long studentCode, int groupId) {
             this.admissionYear = admissionYear;
             this.firstName = firstName;
             this.lastName = lastName;
             this.dateOfBirth = dateOfBirth;
             this.gender = gender;
             this.studentCode = studentCode;
-            this.group = group;
+            this.groupId = groupId;
         }
 
         public StudentBuilder patronymic(String val) {
@@ -77,7 +77,7 @@ public class Student {
         studentCode = builder.studentCode;
         email = builder.email;
         phone = builder.phone;
-        group = builder.group;
+        groupId = builder.groupId;
         patronymic = builder.patronymic;
     }
 
@@ -89,10 +89,27 @@ public class Student {
                 ", email='" + email + '\'' +
                 ", first_name='" + firstName + '\'' +
                 ", gender='" + gender + '\'' +
-                ", group=" + group +
+                ", group=" + groupId +
                 ", last_name='" + lastName + '\'' +
                 ", student_code=" + studentCode +
                 ", patronymic='" + patronymic + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Student)) return false;
+        Student s = (Student) o;
+        return s.id == id && s.firstName.equals(firstName) && s.lastName.equals(lastName) && s.dateOfBirth.equals(dateOfBirth);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Integer.hashCode(id);
+        result = 31 * result + firstName.hashCode();
+        result = 31 * result + lastName.hashCode();
+        result = 31 * result + dateOfBirth.hashCode();
+        return result;
     }
 }
