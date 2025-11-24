@@ -16,7 +16,7 @@ public class GroupServiceImpl implements GroupService {
         this.groupRepository = GroupRepositoryImpl.getInstance();
     }
 
-    public static GroupServiceImpl getInstance() {
+    public static GroupService getInstance() {
         if (instance == null) {
             instance = new GroupServiceImpl();
         }
@@ -67,4 +67,16 @@ public class GroupServiceImpl implements GroupService {
     public void update(int id, Group group) {
         groupRepository.update(id, group);
     }
+
+    @Override
+    public List<Group> findPaged(String nameLike, Integer departmentId, Short year,
+                                 int limit, int offset, String sortBy, boolean asc) {
+        return groupRepository.findPaged(nameLike, departmentId, year, limit, offset, sortBy, asc);
+    }
+
+    @Override
+    public int count(String nameLike, Integer departmentId, Short year) {
+        return groupRepository.count(nameLike, departmentId, year);
+    }
+
 }

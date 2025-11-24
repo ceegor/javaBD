@@ -62,4 +62,16 @@ public class DepartmentServiceImpl implements DepartmentService {
     public void update(int id, Department department) {
         departmentRepository.update(id, department);
     }
+
+    @Override
+    public List<Department> findPaged(String nameLike, Integer facultyId,
+                                      int limit, int offset, String sortBy, boolean asc) {
+        return departmentRepository.findPaged(nameLike, facultyId, limit, offset, sortBy, asc);
+    }
+
+    @Override
+    public int count(String nameLike, Integer facultyId) {
+        return departmentRepository.count(nameLike, facultyId);
+    }
+
 }

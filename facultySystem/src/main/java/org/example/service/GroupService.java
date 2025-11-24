@@ -9,4 +9,8 @@ public interface GroupService extends Service<Group> {
     Group getGroupByName(String name);
     List<Group> getGroupsByYear(short year);
     List<Group> getGroupsByDepartment(int departmentId);
+    List<Group> findPaged(String nameLike, Integer departmentId, Short year,
+                          int limit, int offset, String sortBy, boolean asc);
+    int count(String nameLike, Integer departmentId, Short year);
+
 }

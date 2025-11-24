@@ -8,4 +8,9 @@ import java.util.List;
 public interface DepartmentService extends Service<Department> {
     Department getDepartmentByName(String name);
     List<Department> getDepartmentsByFaculty(int facultyId);
+    List<Department> findPaged(String nameLike, Integer facultyId,
+                               int limit, int offset, String sortBy, boolean asc);
+
+    int count(String nameLike, Integer facultyId);
+
 }

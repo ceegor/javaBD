@@ -7,5 +7,7 @@ import java.util.List;
 public interface FacultyService extends Service<Faculty> {
     Faculty getFacultyByName(String name);
     Faculty getFacultyByDean(String dean);
-    Faculty createFaculty(String[] parameters);
+    List<Faculty> findPaged(String nameLike, int limit, int offset, String sortBy, boolean asc);
+    int count(String nameLike);
+
 }

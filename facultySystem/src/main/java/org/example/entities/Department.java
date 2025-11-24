@@ -1,23 +1,28 @@
 package org.example.entities;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class Department {
-    private static final AtomicInteger DEPARTMENT_INSTANCE_COUNTER = new AtomicInteger(0);
 
-    private final int id;
+    private Integer id;
     private String name;
     private int facultyId;
 
     public Department(String name, int facultyId) {
-        this.id = DEPARTMENT_INSTANCE_COUNTER.incrementAndGet();
-        this.facultyId = facultyId;
-        this.name = name;
+        setName(name);
+        setFacultyId(facultyId);
+    }
+
+    public Department(Integer id, String name, int facultyId) {
+        this(name, facultyId);
+        this.id = id;
     }
 
     @Override

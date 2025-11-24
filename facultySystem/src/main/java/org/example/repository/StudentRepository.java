@@ -10,4 +10,14 @@ public interface StudentRepository extends Repository<Student> {
     List<Student> getStudentsByGroup(int groupId);
     List<Student> getStudentsByAdmissionYear(int year);
     void deleteStudentById(int id);
+    List<Student> findPaged(
+            String lastNameLike, Integer groupId, Integer departmentId, Integer facultyId,
+            int limit, int offset, String sortBy, boolean asc);
+
+    int count(String lastNameLike, Integer groupId, Integer departmentId, Integer facultyId);
+    Student getByStudentCode(String code);
+    boolean existsByEmail(String email);
+    List<Student> getByDepartment(int departmentId, int limit, int offset);
+    int countByDepartment(int departmentId);
+
 }

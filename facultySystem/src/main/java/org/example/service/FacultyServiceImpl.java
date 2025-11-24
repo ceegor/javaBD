@@ -22,19 +22,6 @@ public class FacultyServiceImpl implements FacultyService {
         return instance;
     }
 
-    private Faculty setInfoForNewFaculty(String[] parameters) {
-        String name = parameters[0];
-        String dean = parameters[1];
-        return new Faculty(name, dean);
-    }
-
-    @Override
-    public Faculty createFaculty(String[] parameters) {
-        Faculty faculty = setInfoForNewFaculty(parameters);
-        facultyRepository.add(faculty);
-        return faculty;
-    }
-
     @Override
     public Faculty getFacultyByName(String name) {
         return facultyRepository.getFacultyByName(name);
@@ -62,4 +49,18 @@ public class FacultyServiceImpl implements FacultyService {
     }
 
     @Override public void removeAll() { facultyRepository.removeAll(); }
+
+    @Override
+    public List<Faculty> findPaged(String nameLike, int limit, int offset, String sortBy, boolean asc) {
+        return facultyRepository.findPaged(nameLike, limit, offset, sortBy, asc);
+    }
+
+    @Override
+    public int count(String nameLike) {
+        return facultyRepository.count(nameLike);
+    }
+
+    public boolean existsByName(String name) {
+        return getFacultyByName(name) != null;
+    }
 }

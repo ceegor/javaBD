@@ -10,6 +10,7 @@ import org.example.repository.StudentRepositoryImpl;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -17,11 +18,9 @@ import java.util.stream.Collectors;
 public class StudentServiceImpl implements StudentService {
     private static StudentServiceImpl instance;
     private final StudentRepository studentRepository;
-    private final GroupRepository groupRepository;
 
     private StudentServiceImpl() {
         this.studentRepository = StudentRepositoryImpl.getInstance();
-        this.groupRepository = GroupRepositoryImpl.getInstance();
     }
 
     public static StudentService getInstance() {
@@ -32,33 +31,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> getStudentsByDepartment(int departmentId) {
-        Set<Integer> groupIds = groupRepository.getGroupsByDepartment(departmentId)
-                .stream()
-                .map(Group::getId)
-                .collect(Collectors.toSet());
-
-        if (groupIds.isEmpty()) return List.of();
-
-        return studentRepository.getAll().stream()
-                .filter(s -> groupIds.contains(s.getGroupId()))
-                .toList();
-    }
-
-    @Override
     public List<Student> getStudentsByGroup(int groupId) {
-        return studentRepository.getAll().stream()
-                .filter(s -> s.getGroupId() >= 0 &&
-                        s.getGroupId() == groupId)
-                .toList();
-    }
-
-    @Override
-    public Student findStudentsByStudentCode(long studentCode) {
-        return studentRepository.getAll().stream()
-                .filter(s -> s.getStudentCode() == studentCode)
-                .findFirst()
-                .orElse(null);
+        return studentRepository.getStudentsByGroup(groupId);
     }
 
     @Override
@@ -72,12 +46,6 @@ public class StudentServiceImpl implements StudentService {
                 .filter(s -> s.getDateOfBirth() != null &&
                         Period.between(s.getDateOfBirth(), LocalDate.now()).getYears() > age)
                 .toList();
-    }
-
-    @Override
-    public boolean isEmailUnique(String email) {
-        return studentRepository.getAll().stream()
-                .noneMatch(s -> s.getEmail().equalsIgnoreCase(email));
     }
 
     @Override
@@ -104,4 +72,53 @@ public class StudentServiceImpl implements StudentService {
     public void add(Student student) {
         studentRepository.add(student);
     }
+
+    @Override
+    public List<Student> findPaged(String lastNameLike,
+                                   Integer groupId,
+                                   Integer departmentId,
+                                   Integer facultyId,
+                                   int limit,
+                                   int offset,
+                                   String sortBy,
+                                   boolean asc) {
+        return studentRepository.findPaged(lastNameLike, groupId, departmentId, facultyId,
+                limit, offset, sortBy, asc);
+    }
+
+    @Override
+    public int count(String lastNameLike,
+                     Integer groupId,
+                     Integer departmentId,
+                     Integer facultyId) {
+        return studentRepository.count(lastNameLike, groupId, departmentId, facultyId);
+    }
+
+    @Override
+    public List<Student> getStudentsByDepartment(int departmentId, int limit, int offset) {
+        return studentRepository.getByDepartment(departmentId, limit, offset);
+    }
+
+    @Override
+    public int countStudentsByDepartment(int departmentId) {
+        return studentRepository.countByDepartment(departmentId);
+    }
+
+    @Override
+    public Student getByStudentCode(String studentCode) {
+        if (studentCode == null || studentCode.isBlank()) return null;
+        return studentRepository.getByStudentCode(studentCode.trim());
+    }
+
+    @Override
+    public Student getStudentByStudentCode(String studentCode) {
+        return getByStudentCode(studentCode);
+    }
+
+    @Override
+    public boolean isEmailUnique(String email) {
+        if (email == null || email.isBlank()) return true;
+        return !studentRepository.existsByEmail(email.trim());
+    }
+
 }

@@ -10,4 +10,8 @@ public interface GroupRepository extends Repository<Group> {
     List<Group> getGroupsByYear(short year);
     List<Group> getGroupsByDepartment(int departmentId);
     void deleteGroupById(int id);
+    List<Group> findPaged(String nameLike, Integer departmentId, Short year,
+                          int limit, int offset, String sortBy, boolean asc);
+    int count(String nameLike, Integer departmentId, Short year);
+
 }
