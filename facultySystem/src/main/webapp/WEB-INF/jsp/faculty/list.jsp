@@ -23,6 +23,8 @@
 </head>
 <body>
 
+<jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
+
 <h1>Факультеты</h1>
 
 <div class="toolbar">
@@ -35,19 +37,22 @@
             <option value="dean" ${sort=='dean' ? 'selected' : ''}>Декан</option>
         </select>
 
+        <select name="asc">
+            <option value="true"  ${asc ? 'selected' : ''}>По возрастанию</option>
+            <option value="false" ${!asc ? 'selected' : ''}>По убыванию</option>
+        </select>
+
         <select name="size">
             <option value="10" ${size==10 ? 'selected' : ''}>10</option>
             <option value="20" ${size==20 ? 'selected' : ''}>20</option>
             <option value="50" ${size==50 ? 'selected' : ''}>50</option>
         </select>
 
-        <input type="hidden" name="asc" value="${asc}"/>
-
         <button type="submit">Показать</button>
     </form>
 
     <p>
-        <a href="${pageContext.request.contextPath}/faculty/new">➕ Добавить факультет</a>
+        <a href="${pageContext.request.contextPath}/faculty/new">Добавить факультет</a>
     </p>
 </div>
 
@@ -65,14 +70,14 @@
             <td><c:out value="${f.name}"/></td>
             <td><c:out value="${f.dean}"/></td>
             <td>
-                <a href="${pageContext.request.contextPath}/faculty/edit?id=${f.id}">✏️ Редактировать</a>
+                <a href="${pageContext.request.contextPath}/faculty/edit?id=${f.id}">Редактировать</a>
 
                 <form method="post"
                       action="${pageContext.request.contextPath}/faculty/delete"
                       style="display:inline">
                     <input type="hidden" name="id" value="${f.id}"/>
                     <input type="hidden" name="_csrf" value="${sessionScope.CSRF_TOKEN}"/>
-                    <button type="submit" onclick="return confirm('Удалить факультет?')">🗑️ Удалить</button>
+                    <button type="submit" onclick="return confirm('Удалить факультет?')">Удалить</button>
                 </form>
             </td>
         </tr>

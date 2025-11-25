@@ -8,9 +8,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 public class StudentRepositoryImpl implements StudentRepository {
     private static StudentRepositoryImpl instance;
@@ -284,6 +286,167 @@ public class StudentRepositoryImpl implements StudentRepository {
         } catch (SQLException e) { throw new RuntimeException(e); }
     }
 
+    @Override
+    public Map<String, Integer> countByFaculty() {
+        String sql = """
+        SELECT f.name AS faculty, COUNT(*) AS total
+          FROM student s
+          JOIN student_group g ON g.group_id = s.group_id
+          JOIN department d    ON d.department_id = g.department_id
+          JOIN faculty f       ON f.faculty_id = d.faculty_id
+         GROUP BY f.name
+         ORDER BY f.name
+    """;
+        Map<String, Integer> out = new java.util.LinkedHashMap<>();
+        try (Connection c = Database.open();
+             PreparedStatement ps = c.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                out.put(rs.getString("faculty"), rs.getInt("total"));
+            }
+        } catch (SQLException e) { throw new RuntimeException(e); }
+        return out;
+    }
+
+    @Override
+    public Map<String, Integer> countByDepartment() {
+        String sql = """
+        SELECT d.name AS department, COUNT(*) AS total
+          FROM student s
+          JOIN student_group g ON g.group_id = s.group_id
+          JOIN department d    ON d.department_id = g.department_id
+         GROUP BY d.name
+         ORDER BY d.name
+    """;
+        Map<String, Integer> out = new java.util.LinkedHashMap<>();
+        try (Connection c = Database.open();
+             PreparedStatement ps = c.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                out.put(rs.getString("department"), rs.getInt("total"));
+            }
+        } catch (SQLException e) { throw new RuntimeException(e); }
+        return out;
+    }
+
+    @Override
+    public Map<String, Integer> countByGroup() {
+        String sql = """
+        SELECT g.name AS grp, COUNT(*) AS total
+          FROM student s
+          JOIN student_group g ON g.group_id = s.group_id
+         GROUP BY g.name
+         ORDER BY g.name
+    """;
+        Map<String, Integer> out = new java.util.LinkedHashMap<>();
+        try (Connection c = Database.open();
+             PreparedStatement ps = c.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                out.put(rs.getString("grp"), rs.getInt("total"));
+            }
+        } catch (SQLException e) { throw new RuntimeException(e); }
+        return out;
+    }
+
+    @Override
+    public Map<Integer, Integer> countByAdmissionYear() {
+        String sql = """
+        SELECT admission_year, COUNT(*) AS total
+          FROM student
+         GROUP BY admission_year
+         ORDER BY admission_year
+    """;
+        Map<Integer, Integer> out = new java.util.LinkedHashMap<>();
+        try (Connection c = Database.open();
+             PreparedStatement ps = c.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                out.put(rs.getInt("admission_year"), rs.getInt("total"));
+            }
+        } catch (SQLException e) { throw new RuntimeException(e); }
+        return out;
+    }
+
+    @Override
+    public int countOlderThan(LocalDate boundary) {
+        String sql = "SELECT COUNT(*) FROM student WHERE date_of_birth <= ?";
+        try (Connection c = Database.open();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setObject(1, boundary);
+            try (ResultSet rs = ps.executeQuery()) {
+                rs.next();
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) { throw new RuntimeException(e); }
+    }
+
+    @Override
+    public int countYoungerThan(LocalDate boundary) {
+        String sql = "SELECT COUNT(*) FROM student WHERE date_of_birth > ?";
+        try (Connection c = Database.open();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setObject(1, boundary);
+            try (ResultSet rs = ps.executeQuery()) {
+                rs.next();
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) { throw new RuntimeException(e); }
+    }
+
+    @Override
+    public List<Student> findStudentsOlderThan(LocalDate boundary) {
+        String sql = """
+        SELECT * FROM student
+        WHERE date_of_birth <= ?
+        ORDER BY date_of_birth
+    """;
+
+        List<Student> out = new ArrayList<>();
+
+        try (Connection c = Database.open();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+
+            ps.setObject(1, boundary);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    out.add(map(rs));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return out;
+    }
+
+    @Override
+    public List<Student> findStudentsYoungerThan(LocalDate boundary) {
+        String sql = """
+        SELECT * FROM student
+        WHERE date_of_birth > ?
+        ORDER BY date_of_birth DESC
+    """;
+
+        List<Student> out = new ArrayList<>();
+
+        try (Connection c = Database.open();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+
+            ps.setObject(1, boundary);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    out.add(map(rs));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return out;
+    }
 
     private static String baseSelect() {
         return """

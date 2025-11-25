@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -38,14 +39,6 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void delete(int id) {
         studentRepository.deleteStudentById(id);
-    }
-
-    @Override
-    public List<Student> getStudentsOlderThan(int age) {
-        return studentRepository.getAll().stream()
-                .filter(s -> s.getDateOfBirth() != null &&
-                        Period.between(s.getDateOfBirth(), LocalDate.now()).getYears() > age)
-                .toList();
     }
 
     @Override
@@ -121,4 +114,47 @@ public class StudentServiceImpl implements StudentService {
         return !studentRepository.existsByEmail(email.trim());
     }
 
+    @Override
+    public Map<String, Integer> getStudentCountByFaculty() {
+        return studentRepository.countByFaculty();
+    }
+
+    @Override
+    public Map<String, Integer> getStudentCountByDepartment() {
+        return studentRepository.countByDepartment();
+    }
+
+    @Override
+    public Map<String, Integer> getStudentCountByGroup() {
+        return studentRepository.countByGroup();
+    }
+
+    @Override
+    public Map<Integer, Integer> getStudentCountByAdmissionYear() {
+        return studentRepository.countByAdmissionYear();
+    }
+
+    @Override
+    public int countStudentsOlderThan(int ageYears) {
+        java.time.LocalDate boundary = java.time.LocalDate.now().minusYears(ageYears);
+        return studentRepository.countOlderThan(boundary);
+    }
+
+    @Override
+    public int countStudentsYoungerThan(int ageYears) {
+        java.time.LocalDate boundary = java.time.LocalDate.now().minusYears(ageYears);
+        return studentRepository.countYoungerThan(boundary);
+    }
+
+    @Override
+    public List<Student> findStudentsOlderThan(int age) {
+        LocalDate boundary = LocalDate.now().minusYears(age);
+        return studentRepository.findStudentsOlderThan(boundary);
+    }
+
+    @Override
+    public List<Student> findStudentsYoungerThan(int age) {
+        LocalDate boundary = LocalDate.now().minusYears(age);
+        return studentRepository.findStudentsYoungerThan(boundary);
+    }
 }
