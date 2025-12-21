@@ -68,6 +68,13 @@
   </p>
 </div>
 
+<c:if test="${not empty sessionScope.deleteError}">
+  <div style="color:red; font-weight:bold;">
+    <c:out value="${sessionScope.deleteError}"/>
+  </div>
+  <c:remove var="deleteError" scope="session"/>
+</c:if>
+
 <table>
   <tr>
     <th>ID</th>
@@ -129,4 +136,3 @@
 
 </body>
 </html>
-

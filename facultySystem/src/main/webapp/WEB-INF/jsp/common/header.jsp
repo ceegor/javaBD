@@ -13,11 +13,28 @@
         Система управления факультетами
     </span>
 
-  <a href="${pageContext.request.contextPath}/" style="color:#fff;margin-right:10px;">Главная</a>
-  <a href="${pageContext.request.contextPath}/faculties" style="color:#fff;margin-right:10px;">Факультеты</a>
-  <a href="${pageContext.request.contextPath}/departments" style="color:#fff;margin-right:10px;">Кафедры</a>
-  <a href="${pageContext.request.contextPath}/groups" style="color:#fff;margin-right:10px;">Группы</a>
-  <a href="${pageContext.request.contextPath}/students" style="color:#fff;margin-right:10px;">Студенты</a>
-  <a href="${pageContext.request.contextPath}/statistics" style="color:#fff;margin-right:10px;">Статистика</a>
+    <a href="${pageContext.request.contextPath}/"
+       style="color:#fff;margin-right:10px;text-decoration:none;">
+        Главная
+    </a>
+    <a href="${pageContext.request.contextPath}/faculties"
+       style="color:#fff;margin-right:10px;text-decoration:none;">
+        Факультеты
+    </a>
+    <a href="${pageContext.request.contextPath}/departments"
+       style="color:#fff;margin-right:10px;text-decoration:none;">
+        Кафедры
+    </a>
+    <a href="${pageContext.request.contextPath}/groups"
+       style="color:#fff;margin-right:10px;text-decoration:none;">
+        Группы
+    </a>
+    <a href="${pageContext.request.contextPath}/students"
+       style="color:#fff;margin-right:10px;text-decoration:none;">
+        Студенты
+    </a>
+    <a href="${pageContext.request.contextPath}/statistics"
+       style="color:#fff;margin-right:10px;text-decoration:none;">
+        Статистика
+    </a>
 </div>
-

@@ -13,5 +13,5 @@ public interface GroupRepository extends Repository<Group> {
     List<Group> findPaged(String nameLike, Integer departmentId, Short year,
                           int limit, int offset, String sortBy, boolean asc);
     int count(String nameLike, Integer departmentId, Short year);
-
+    int countByDepartmentId(int departmentId);
 }

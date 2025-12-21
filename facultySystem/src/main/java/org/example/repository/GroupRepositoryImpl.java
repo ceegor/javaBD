@@ -182,6 +182,22 @@ public class GroupRepositoryImpl implements GroupRepository {
         } catch (SQLException e) { throw new RuntimeException(e); }
     }
 
+    @Override
+    public int countByDepartmentId(int departmentId) {
+        String sql = "SELECT COUNT(*) FROM student_group WHERE department_id = ?";
+        try (Connection c = Database.open();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, departmentId);
+            try (ResultSet rs = ps.executeQuery()) {
+                rs.next();
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 
     public static String baseSelect() {
         return """

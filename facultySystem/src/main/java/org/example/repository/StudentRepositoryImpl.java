@@ -144,7 +144,7 @@ public class StudentRepositoryImpl implements StudentRepository {
     @Override
     public List<Student> findPaged(String lastNameLike, Integer groupId, Integer departmentId, Integer facultyId,
                                    int limit, int offset, String sortBy, boolean asc) {
-        // Сортировка whitelisted
+
         String order = switch (sortBy == null ? "" : sortBy) {
             case "last_name" -> "s.last_name";
             case "first_name" -> "s.first_name";
@@ -330,7 +330,7 @@ public class StudentRepositoryImpl implements StudentRepository {
     }
 
     @Override
-    public Map<String, Integer> countByGroup() {
+   public Map<String, Integer> countByGroup() {
         String sql = """
         SELECT g.name AS grp, COUNT(*) AS total
           FROM student s
@@ -447,6 +447,24 @@ public class StudentRepositoryImpl implements StudentRepository {
 
         return out;
     }
+
+    @Override
+    public int countByGroupId(int groupId) {
+        String sql = "SELECT COUNT(*) FROM student WHERE group_id = ?";
+        try (Connection c = Database.open();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+
+            ps.setInt(1, groupId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                rs.next();
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     private static String baseSelect() {
         return """

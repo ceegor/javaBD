@@ -2,6 +2,8 @@ package org.example.service;
 
 import org.example.entities.Faculty;
 import org.example.entities.Student;
+import org.example.repository.DepartmentRepository;
+import org.example.repository.DepartmentRepositoryImpl;
 import org.example.repository.FacultyRepository;
 import org.example.repository.FacultyRepositoryImpl;
 
@@ -10,9 +12,11 @@ import java.util.List;
 public class FacultyServiceImpl implements FacultyService {
     private static FacultyServiceImpl instance;
     private final FacultyRepository facultyRepository;
+    private final DepartmentRepository departmentRepository;
 
     private FacultyServiceImpl() {
         this.facultyRepository = FacultyRepositoryImpl.getInstance();
+        this.departmentRepository = DepartmentRepositoryImpl.getInstance();
     }
 
     public static FacultyService getInstance() {
@@ -45,6 +49,12 @@ public class FacultyServiceImpl implements FacultyService {
     @Override public void update(int id, Faculty faculty) { facultyRepository.update(id, faculty); }
 
     @Override public void delete(int id) {
+        int deps = departmentRepository.countByFacultyId(id);
+        if (deps > 0) {
+            throw new IllegalStateException(
+                    "Нельзя удалить факультет, к нему привязано кафедр - " + deps
+            );
+        }
         facultyRepository.deleteFacultyById(id);
     }
 

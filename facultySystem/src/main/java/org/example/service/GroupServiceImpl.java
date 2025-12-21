@@ -2,18 +2,18 @@ package org.example.service;
 
 import org.example.entities.Department;
 import org.example.entities.Group;
-import org.example.repository.DepartmentRepositoryImpl;
-import org.example.repository.GroupRepository;
-import org.example.repository.GroupRepositoryImpl;
+import org.example.repository.*;
 
 import java.util.List;
 
 public class GroupServiceImpl implements GroupService {
     private static GroupServiceImpl instance;
     private final GroupRepository groupRepository;
+    private final StudentRepository studentRepository;
 
     private GroupServiceImpl() {
         this.groupRepository = GroupRepositoryImpl.getInstance();
+        this.studentRepository = StudentRepositoryImpl.getInstance();
     }
 
     public static GroupService getInstance() {
@@ -45,6 +45,12 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public void delete(int id) {
+        int stud = studentRepository.countByGroupId(id);
+        if (stud > 0) {
+            throw new IllegalStateException(
+                    "Нельзя удалить группу, в ней студентов - " + stud
+            );
+        }
         groupRepository.deleteGroupById(id);
     }
 

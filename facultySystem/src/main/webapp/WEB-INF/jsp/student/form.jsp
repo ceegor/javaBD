@@ -14,6 +14,7 @@
 <head>
   <title><c:out value="${isNew ? 'Новый студент' : 'Редактирование студента'}"/></title>
   <style>
+    body { font-family: Arial, sans-serif; }
     .error { color: red; }
     label { display:block; margin-top:6px; }
     input[type=text], input[type=date], input[type=number], select {
@@ -36,28 +37,30 @@
 </c:if>
 
 <form method="post" action="${pageContext.request.contextPath}/student/edit">
+  <input type="hidden" name="_csrf" value="${sessionScope.CSRF_TOKEN}"/>
+
   <c:if test="${not isNew}">
-    <input type="hidden" name="id" value="${student.id}"/>
+    <input type="hidden" name="id" value="<c:out value='${student.id}'/>"/>
   </c:if>
 
   <label>
     Фамилия:
-    <input type="text" name="lastName" value="${student.lastName}"/>
+    <input type="text" name="lastName" value="<c:out value='${student.lastName}'/>"/>
   </label>
 
   <label>
     Имя:
-    <input type="text" name="firstName" value="${student.firstName}"/>
+    <input type="text" name="firstName" value="<c:out value='${student.firstName}'/>"/>
   </label>
 
   <label>
     Отчество:
-    <input type="text" name="patronymic" value="${student.patronymic}"/>
+    <input type="text" name="patronymic" value="<c:out value='${student.patronymic}'/>"/>
   </label>
 
   <label>
     Дата рождения:
-    <input type="date" name="dateOfBirth" value="${student.dateOfBirth}"/>
+    <input type="date" name="dateOfBirth" value="<c:out value='${student.dateOfBirth}'/>"/>
   </label>
 
   <label>
@@ -71,22 +74,22 @@
 
   <label>
     Год поступления:
-    <input type="number" name="admissionYear" value="${student.admissionYear}"/>
+    <input type="number" name="admissionYear" value="<c:out value='${student.admissionYear}'/>"/>
   </label>
 
   <label>
     Код студента:
-    <input type="text" name="studentCode" value="${student.studentCode}"/>
+    <input type="text" name="studentCode" value="<c:out value='${student.studentCode}'/>"/>
   </label>
 
   <label>
     Email:
-    <input type="text" name="email" value="${student.email}"/>
+    <input type="text" name="email" value="<c:out value='${student.email}'/>"/>
   </label>
 
   <label>
     Телефон:
-    <input type="text" name="phone" value="${student.phone}"/>
+    <input type="text" name="phone" value="<c:out value='${student.phone}'/>"/>
   </label>
 
   <label>
@@ -96,7 +99,7 @@
       <c:forEach var="g" items="${groups}">
         <option value="${g.id}"
                 <c:if test="${student != null && student.groupId == g.id}">selected</c:if>>
-            ${g.name} (курс ${g.year})
+          <c:out value="${g.name}"/> (курс <c:out value="${g.year}"/>)
         </option>
       </c:forEach>
     </select>

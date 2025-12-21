@@ -15,6 +15,7 @@
         body { font-family: Arial, sans-serif; }
         .form-field { margin-bottom: 10px; }
         label { display: inline-block; width: 140px; }
+        .error { color:red; }
     </style>
 </head>
 <body>
@@ -30,7 +31,7 @@
 </h1>
 
 <c:if test="${not empty error}">
-    <div style="color:red;">
+    <div class="error">
         <c:out value="${error}"/>
     </div>
 </c:if>
@@ -39,7 +40,7 @@
     <input type="hidden" name="_csrf" value="${sessionScope.CSRF_TOKEN}"/>
 
     <c:if test="${not empty d}">
-        <input type="hidden" name="id" value="${d.id}"/>
+        <input type="hidden" name="id" value="<c:out value='${d.id}'/>"/>
     </c:if>
 
     <div class="form-field">

@@ -19,7 +19,11 @@ public class DepartmentDeleteServlet extends HttpServlet {
         try {
             if (idStr != null && !idStr.isBlank()) {
                 int id = Integer.parseInt(idStr);
-                departmentService.delete(id);
+                try {
+                    departmentService.delete(id);
+                } catch (IllegalStateException e) {
+                    req.getSession().setAttribute("deleteError", e.getMessage());
+                }
             }
         } catch (NumberFormatException ignored) {
 

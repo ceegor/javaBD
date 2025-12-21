@@ -19,7 +19,11 @@ public class GroupDeleteServlet extends HttpServlet {
         try {
             if (idStr != null && !idStr.isBlank()) {
                 int id = Integer.parseInt(idStr);
-                groupService.delete(id);
+                try {
+                    groupService.delete(id);
+                } catch (IllegalStateException e) {
+                    req.getSession().setAttribute("deleteError", e.getMessage());
+                }
             }
         } catch (NumberFormatException ignored) {}
         resp.sendRedirect(req.getContextPath() + "/groups");

@@ -26,7 +26,7 @@ public class StatisticsServlet extends HttpServlet {
         req.setAttribute("byYear", studentService.getStudentCountByAdmissionYear());
 
         List<Student> olderStudents   = studentService.findStudentsOlderThan(age);
-        List<Student>    youngerStudents = studentService.findStudentsYoungerThan(age);
+        List<Student> youngerStudents = studentService.findStudentsYoungerThan(age);
 
         req.setAttribute("age", age);
         req.setAttribute("olderStudents", olderStudents);

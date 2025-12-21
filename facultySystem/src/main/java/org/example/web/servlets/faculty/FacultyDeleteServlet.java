@@ -17,10 +17,16 @@ public class FacultyDeleteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String idStr = req.getParameter("id");
-        if (idStr != null && !idStr.isBlank()) {
-            int id = Integer.parseInt(idStr);
-            facultyService.delete(id);
-        }
+        try {
+            if (idStr != null && !idStr.isBlank()) {
+                int id = Integer.parseInt(idStr);
+                try {
+                    facultyService.delete(id);
+                } catch (IllegalStateException e) {
+                    req.getSession().setAttribute("deleteError", e.getMessage());
+                }
+            }
+        } catch (NumberFormatException ignored) {}
         resp.sendRedirect(req.getContextPath() + "/faculties");
     }
 }

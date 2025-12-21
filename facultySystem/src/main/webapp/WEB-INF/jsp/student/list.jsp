@@ -32,40 +32,36 @@
            placeholder="Поиск по фамилии"
            value="${fn:escapeXml(lastName)}"/>
 
-    <!-- Факультет -->
     <select name="facultyId">
       <option value="">Все факультеты</option>
       <c:forEach var="f" items="${faculties}">
         <option value="${f.id}"
                 <c:if test="${facultyId != null && facultyId == f.id}">selected</c:if>>
-            ${f.name}
+            <c:out value="${f.name}"/>
         </option>
       </c:forEach>
     </select>
 
-    <!-- Кафедра -->
     <select name="departmentId">
       <option value="">Все кафедры</option>
       <c:forEach var="d" items="${departments}">
         <option value="${d.id}"
                 <c:if test="${departmentId != null && departmentId == d.id}">selected</c:if>>
-            ${d.name}
+            <c:out value="${d.name}"/>
         </option>
       </c:forEach>
     </select>
 
-    <!-- Группа -->
     <select name="groupId">
       <option value="">Все группы</option>
       <c:forEach var="g" items="${groups}">
         <option value="${g.id}"
                 <c:if test="${groupId != null && groupId == g.id}">selected</c:if>>
-            ${g.name}
+            <c:out value="${g.name}"/>
         </option>
       </c:forEach>
     </select>
 
-    <!-- Сортировка -->
     <select name="sort">
       <option value="student_id"      ${sort == 'student_id'      ? 'selected' : ''}>ID</option>
       <option value="last_name"       ${sort == 'last_name'       ? 'selected' : ''}>Фамилия</option>
@@ -107,12 +103,12 @@
 
   <c:forEach var="s" items="${students}">
     <tr>
-      <td>${s.id}</td>
-      <td>${s.lastName}</td>
-      <td>${s.firstName}</td>
-      <td>${s.studentCode}</td>
-      <td>${s.email}</td>
-      <td>${s.groupId}</td>
+      <td><c:out value="${s.id}"/></td>
+      <td><c:out value="${s.lastName}"/></td>
+      <td><c:out value="${s.firstName}"/></td>
+      <td><c:out value="${s.studentCode}"/></td>
+      <td><c:out value="${s.email}"/></td>
+      <td><c:out value="${s.groupId}"/></td>
       <td>
         <a href="${pageContext.request.contextPath}/student/edit?id=${s.id}">✏️</a>
         |
@@ -132,8 +128,6 @@
   </c:if>
 </table>
 
-
-<!-- Пагинация -->
 <c:if test="${pages > 1}">
   <div>
     Страницы:

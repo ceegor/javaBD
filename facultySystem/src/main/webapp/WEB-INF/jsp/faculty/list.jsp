@@ -25,6 +25,7 @@
 
 <jsp:include page="/WEB-INF/jsp/common/header.jsp"/>
 
+
 <h1>Факультеты</h1>
 
 <div class="toolbar">
@@ -55,6 +56,13 @@
         <a href="${pageContext.request.contextPath}/faculty/new">Добавить факультет</a>
     </p>
 </div>
+
+<c:if test="${not empty sessionScope.deleteError}">
+    <div style="color:red; font-weight:bold;">
+        <c:out value="${sessionScope.deleteError}"/>
+    </div>
+    <c:remove var="deleteError" scope="session"/>
+</c:if>
 
 <table>
     <tr>

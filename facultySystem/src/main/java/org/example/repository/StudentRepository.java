@@ -29,4 +29,6 @@ public interface StudentRepository extends Repository<Student> {
     int countYoungerThan(java.time.LocalDate dateBoundary);
     List<Student> findStudentsOlderThan(LocalDate boundary);
     List<Student> findStudentsYoungerThan(LocalDate boundary);
+    int countByGroupId(int groupId);
+
 }

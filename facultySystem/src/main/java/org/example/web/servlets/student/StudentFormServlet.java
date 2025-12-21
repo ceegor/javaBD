@@ -63,7 +63,6 @@ public class StudentFormServlet extends HttpServlet {
 
         Map<String,String> errors = new LinkedHashMap<>();
 
-        // Валидация простая
         if (firstName == null || firstName.isBlank())
             errors.put("firstName", "Имя обязательно");
 
@@ -105,7 +104,6 @@ public class StudentFormServlet extends HttpServlet {
         if (studentCode == null || studentCode.isBlank()) {
             errors.put("studentCode", "Код студента обязателен");
         } else if (idParam == null) {
-            // Проверяем уникальность только при создании
             if (studentService.getByStudentCode(studentCode) != null) {
                 errors.put("studentCode", "Студент с таким кодом уже существует");
             }
@@ -116,8 +114,6 @@ public class StudentFormServlet extends HttpServlet {
                 errors.put("email", "Почта уже используется другим студентом");
             }
         }
-
-        // Собираем объект (даже при ошибках, чтобы вернуть введённые значения)
         Student.Builder builder = Student.builder()
                 .firstName(firstName)
                 .lastName(lastName)
@@ -135,7 +131,6 @@ public class StudentFormServlet extends HttpServlet {
         try {
             student = builder.build();
         } catch (IllegalArgumentException e) {
-            // сюда попадём, если builder сам ругнулся (например, groupId <= 0)
             errors.put("common", e.getMessage());
             student = null;
         }
@@ -146,7 +141,6 @@ public class StudentFormServlet extends HttpServlet {
         }
 
         if (!errors.isEmpty() || student == null) {
-            // Вернуть форму с ошибками
             req.setAttribute("errors", errors);
             req.setAttribute("student", student);
             req.setAttribute("groups", groupService.getAll());

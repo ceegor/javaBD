@@ -29,29 +29,31 @@
   <form method="get" action="${pageContext.request.contextPath}/statistics">
     <label>
       Возраст:
-      <input type="number" name="age" value="${age}" min="0" max="120"/>
+      <input type="number" name="age" value="<c:out value='${age}'/>" min="0" max="120"/>
     </label>
     <button type="submit">Пересчитать</button>
   </form>
   <p>
-    Старше или равно ${age}: <b>${olderCount}</b><br/>
-    Младше ${age}: <b>${youngerCount}</b>
+    Старше или равно <c:out value="${age}"/>: <b><c:out value="${olderCount}"/></b><br/>
+    Младше <c:out value="${age}"/>: <b><c:out value="${youngerCount}"/></b>
   </p>
-  <h3>Список студентов старше или равно ${age}</h3>
+  <h3>Список студентов старше или равно <c:out value="${age}"/></h3>
   <ul>
     <c:forEach var="s" items="${olderStudents}">
       <li>
-          ${s.lastName} ${s.firstName}
-        (код: ${s.studentCode}, группа: ${s.groupId})
+        <c:out value="${s.lastName}"/> <c:out value="${s.firstName}"/>
+        (код: <c:out value="${s.studentCode}"/>,
+        группа: <c:out value="${s.groupId}"/>)
       </li>
     </c:forEach>
   </ul>
-  <h3>Список студентов младше ${age}</h3>
+  <h3>Список студентов младше <c:out value="${age}"/></h3>
   <ul>
     <c:forEach var="s" items="${youngerStudents}">
       <li>
-          ${s.lastName} ${s.firstName}
-        (код: ${s.studentCode}, группа: ${s.groupId})
+        <c:out value="${s.lastName}"/> <c:out value="${s.firstName}"/>
+        (код: <c:out value="${s.studentCode}"/>,
+        группа: <c:out value="${s.groupId}"/>)
       </li>
     </c:forEach>
   </ul>
@@ -63,8 +65,8 @@
     <tr><th>Факультет</th><th>Студентов</th></tr>
     <c:forEach var="e" items="${byFaculty}">
       <tr>
-        <td>${e.key}</td>
-        <td>${e.value}</td>
+        <td><c:out value="${e.key}"/></td>
+        <td><c:out value="${e.value}"/></td>
       </tr>
     </c:forEach>
   </table>
@@ -76,8 +78,8 @@
     <tr><th>Кафедра</th><th>Студентов</th></tr>
     <c:forEach var="e" items="${byDepartment}">
       <tr>
-        <td>${e.key}</td>
-        <td>${e.value}</td>
+        <td><c:out value="${e.key}"/></td>
+        <td><c:out value="${e.value}"/></td>
       </tr>
     </c:forEach>
   </table>
@@ -89,8 +91,8 @@
     <tr><th>Группа</th><th>Студентов</th></tr>
     <c:forEach var="e" items="${byGroup}">
       <tr>
-        <td>${e.key}</td>
-        <td>${e.value}</td>
+        <td><c:out value="${e.key}"/></td>
+        <td><c:out value="${e.value}"/></td>
       </tr>
     </c:forEach>
   </table>
@@ -102,8 +104,8 @@
     <tr><th>Год</th><th>Студентов</th></tr>
     <c:forEach var="e" items="${byYear}">
       <tr>
-        <td>${e.key}</td>
-        <td>${e.value}</td>
+        <td><c:out value="${e.key}"/></td>
+        <td><c:out value="${e.value}"/></td>
       </tr>
     </c:forEach>
   </table>

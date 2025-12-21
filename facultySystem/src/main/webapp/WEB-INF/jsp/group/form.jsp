@@ -15,6 +15,7 @@
     body { font-family: Arial, sans-serif; }
     .form-field { margin-bottom: 10px; }
     label { display: inline-block; width: 140px; }
+    .error { color:red; }
   </style>
 </head>
 <body>
@@ -30,14 +31,14 @@
 </h1>
 
 <c:if test="${not empty error}">
-  <div style="color:red;"><c:out value="${error}"/></div>
+  <div class="error"><c:out value="${error}"/></div>
 </c:if>
 
 <form method="post">
   <input type="hidden" name="_csrf" value="${sessionScope.CSRF_TOKEN}"/>
 
   <c:if test="${not empty g}">
-    <input type="hidden" name="id" value="${g.id}"/>
+    <input type="hidden" name="id" value="<c:out value='${g.id}'/>"/>
   </c:if>
 
   <div class="form-field">
@@ -49,7 +50,7 @@
   <div class="form-field">
     <label for="year">Курс:</label>
     <input id="year" name="year" type="number" min="1" max="10"
-           value="${not empty g ? g.year : ''}"/>
+           value="<c:out value='${not empty g ? g.year : ""}'/>"/>
   </div>
 
   <div class="form-field">

@@ -73,9 +73,16 @@
   </form>
 
   <p>
-    <a href="${pageContext.request.contextPath}/group/new">➕ Добавить группу</a>
+    <a href="${pageContext.request.contextPath}/group/new">Добавить группу</a>
   </p>
 </div>
+
+<c:if test="${not empty sessionScope.deleteError}">
+  <div style="color:red; font-weight:bold;">
+    <c:out value="${sessionScope.deleteError}"/>
+  </div>
+  <c:remove var="deleteError" scope="session"/>
+</c:if>
 
 <table>
   <tr>
@@ -94,7 +101,7 @@
       <td><c:out value="${g.departmentId}"/></td>
       <td>
         <a href="${pageContext.request.contextPath}/group/edit?id=${g.id}">
-          ✏️ Редактировать
+          Редактировать
         </a>
         |
         <form method="post"
@@ -103,7 +110,7 @@
           <input type="hidden" name="id" value="${g.id}"/>
           <input type="hidden" name="_csrf" value="${sessionScope.CSRF_TOKEN}"/>
           <button type="submit" onclick="return confirm('Удалить группу?')">
-            🗑️ Удалить
+            Удалить
           </button>
         </form>
       </td>

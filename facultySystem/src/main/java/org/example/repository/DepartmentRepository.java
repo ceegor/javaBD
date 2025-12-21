@@ -12,4 +12,5 @@ public interface DepartmentRepository extends Repository<Department> {
     List<Department> findPaged(String nameLike, Integer facultyId, int limit, int offset,
                                String sortBy, boolean asc);
     int count(String nameLike, Integer facultyId);
+    int countByFacultyId(int facultyId);
 }

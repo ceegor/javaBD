@@ -160,6 +160,21 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
         } catch (SQLException e) { throw new RuntimeException(e); }
     }
 
+    @Override
+    public int countByFacultyId(int facultyId) {
+        String sql = "SELECT COUNT(*) FROM department WHERE faculty_id = ?";
+        try (Connection c = Database.open();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, facultyId);
+            try (ResultSet rs = ps.executeQuery()) {
+                rs.next();
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     private static Department map(ResultSet rs) throws SQLException {
         Department d = new Department();
