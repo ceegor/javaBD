@@ -10,6 +10,9 @@ import java.util.Properties;
 public class Database {
     private static final Properties props = new Properties();
 
+
+
+
     static {
         try (var in = Thread.currentThread().getContextClassLoader().getResourceAsStream("db.properties")) {
             if (in == null) throw new IllegalStateException("db.properties не найдены");
